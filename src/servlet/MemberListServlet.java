@@ -48,16 +48,37 @@ public class MemberListServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.setCharacterEncoding("UTF-8");
+			request.setCharacterEncoding("UTF-8");
 
-		String name = request.getParameter("name");
-		String adr = request.getParameter("adr");
+			String name = request.getParameter("name");
+			String adr = request.getParameter("adr");
 
-		MemberDAO dao = new MemberDAO();
-		Member m = new Member(0,name,adr);
-		dao.insert(m);
+			if (name.length()==0){
+				request.setAttribute("mes", "氏名を入力してください");
+				request.setAttribute("url", "mlist");
 
-		response.sendRedirect("mlist");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/error.jsp");
+				dispatcher.forward(request, response);
+
+				return;
+			}
+
+			if (adr.length()==0){
+				request.setAttribute("mes", "住所を入力してください");
+				request.setAttribute("url", "mlist");
+
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/error.jsp");
+				dispatcher.forward(request, response);
+
+				return;
+			}
+
+			MemberDAO dao = new MemberDAO();
+			Member m = new Member(0,name,adr);
+			dao.insert(m);
+
+			response.sendRedirect("mlist");
+
 	}
 
 }
