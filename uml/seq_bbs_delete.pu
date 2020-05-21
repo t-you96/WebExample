@@ -1,0 +1,20 @@
+@startuml
+title bbs_削除
+actor ユーザ
+participant PostServlet
+participant DeleteServlet
+participant delete.jsp
+participant bbs
+participant PostDAO
+
+ユーザ -> PostServlet++:GETリクエスト
+PostServlet -> PostDAO**:生成
+ユーザ -> PostServlet:削除ボタン
+PostServlet -> DeleteServlet++:GET
+DeleteServlet -> delete.jsp++:フォワード
+delete.jsp --> ユーザ:確認画面表示
+ユーザ -> DeleteServlet:確認ボタン
+DeleteServlet -> PostDAO++:delete()
+DeleteServlet -> bbs++:リダイレクト
+bbs --> ユーザ:Postリスト表示
+@enduml

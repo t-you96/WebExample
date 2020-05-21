@@ -1,0 +1,12 @@
+@startuml
+title bbs_書き込み
+actor ユーザ
+ユーザ -> PostServlet++:GETリクエスト
+ユーザ -> PostServlet:書き込み
+PostServlet -> PostDAO**:生成
+PostServlet -> Post**:生成
+PostServlet -> PostDAO++:insert()
+PostServlet -> bbs++:リダイレクト
+bbs --> ユーザ:Postリスト表示
+
+@enduml

@@ -1,0 +1,39 @@
+@startuml
+left to right direction
+package servlet{
+	class BbsServlet{
+		+doGet()
+		+doPost()
+	}
+	class ArticleServlet{
+		+doGet()
+	}
+	class DeleteServlet{
+		+doGet()
+		+doPost()
+	}
+}
+package model{
+
+	class PostDAO{
+		+findAll():ArrayList
+		+findByPostid(int postid):ArrayList
+		+insert(Post p)
+		+delete(Post p)
+	}
+	class Post{
+		-postid : int
+		-name : String
+		-title : String
+		-article : String
+		-posttime : Timestamp
+		Post(postid,name,title,posttime)
+	}
+}
+
+Post -* PostDAO
+BbsServlet..>PostDAO
+ArticleServlet..>PostDAO
+DeleteServlet..>PostDAO
+
+@enduml

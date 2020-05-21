@@ -1,0 +1,16 @@
+@startuml
+title bbs_閲覧
+actor ユーザ
+ユーザ -> PostServlet++:GETリクエスト
+PostServlet -> PostDAO**:生成
+PostServlet -> PostDAO++:findAll()
+PostDAO --> PostServlet--:Postリスト
+PostServlet -> bbs++:フォワード
+bbs --> ユーザ:Postリスト表示
+ユーザ -> PostServlet:投稿をクリック
+PostServlet -> PostDAO++:findByPostid()
+PostDAO --> PostServlet--:Post
+PostServlet -> article.jsp++:フォワード
+article.jsp --> ユーザ:Post表示
+
+@enduml

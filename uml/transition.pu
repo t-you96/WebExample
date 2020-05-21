@@ -2,9 +2,11 @@
 title ページ遷移図
 bbs :GET 投稿一覧\nPOST 投稿
 delete:GET 削除確認\nPOST 削除
+article:GET 投稿確認
 
 [*]->bbs
-bbs-->delete:リンク\nid
-delete-->delete:POST\nid
-bbs-->bbs:POST\nid\nname\ntitle\narticle
+bbs-->article:リンク\npostid
+bbs-->delete:リンク\npostid
+delete-->delete:POST\npostid
+bbs-->bbs:POST\npostid\nname\ntitle\narticle
 @enduml
